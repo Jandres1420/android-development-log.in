@@ -10,19 +10,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pico.mvvm.timetonic.timetonictest.ui.theme.TimetonicTestTheme
+import com.mvvm.gamermvvmapp.presentation.ui.theme.TimetonicTheme
+import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TimetonicTestTheme {
+            TimetonicTheme(darkTheme = true){
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    LogInScreen()
                 }
             }
         }
@@ -37,10 +38,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    TimetonicTestTheme {
+    TimetonicTheme {
         Greeting("Android")
     }
 }
