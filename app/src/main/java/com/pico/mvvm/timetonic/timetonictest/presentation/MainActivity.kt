@@ -1,4 +1,4 @@
-package com.pico.mvvm.timetonic.timetonictest
+package com.pico.mvvm.timetonic.timetonictest.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mvvm.gamermvvmapp.presentation.ui.theme.TimetonicTheme
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,10 +2,8 @@ package com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in
 
 import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.pico.mvvm.timetonic.timetonictest.Greeting
 import com.pico.mvvm.timetonic.timetonictest.presentation.components.TopTimetonic
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.components.LogInBottomBar
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.components.LogInContent

@@ -21,12 +21,13 @@ import com.pico.mvvm.timetonic.timetonictest.R
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInScreen
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.BlueTitle
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Orange
+import com.pico.mvvm.timetonic.timetonictest.ui.theme.Pink40
 
 @Composable
 fun TopTimetonic() {
 
     Box(
-        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.tertiary,),
+        modifier = Modifier.fillMaxWidth().background(Pink40),
     )  {
         Box(
             modifier = Modifier
