@@ -14,7 +14,7 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
 
     @Provides
-    fun provideUsersRepository(impl: LogInRepositoryImpl): LogInRepository = impl
+    fun provideLogInRepository(impl: LogInRepositoryImpl): LogInRepository = impl
 
     @Provides
     fun provideLogInUseCases(repository: LogInRepository) = LogInUseCases(

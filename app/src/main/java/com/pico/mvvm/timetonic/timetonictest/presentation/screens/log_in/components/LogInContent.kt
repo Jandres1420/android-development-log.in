@@ -98,8 +98,8 @@ fun LogInContent(viewModel: LogInViewModel = hiltViewModel()) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LogInScreenPreview() {
-    LogInContent()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun LogInScreenPreview() {
+//    LogInContent()
+//}

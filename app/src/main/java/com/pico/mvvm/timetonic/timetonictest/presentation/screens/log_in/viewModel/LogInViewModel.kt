@@ -12,6 +12,11 @@ import javax.inject.Inject
 class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCases) : ViewModel() {
 
     var state by mutableStateOf(LogInState())
+
+    init {
+
+    }
+
     fun onEmailInput(email:String){
         state = state.copy(email = email)
     }
