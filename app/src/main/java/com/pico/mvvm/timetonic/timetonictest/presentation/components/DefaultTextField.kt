@@ -2,7 +2,11 @@ package com.pico.mvvm.timetonic.timetonictest.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -20,6 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mvvm.gamermvvmapp.presentation.ui.theme.TimetonicTheme
@@ -39,7 +44,7 @@ fun DefaultTextField(value: String,
                      validateField: () -> Unit)
 {
     Column() {
-        OutlinedTextField(modifier = modifier,
+        OutlinedTextField(modifier = modifier.height(65.dp).width(300.dp),
             value = value,
             onValueChange = {
                     myValue -> onValueChange(myValue)
