@@ -48,7 +48,12 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
                 version = "1.0", appKey = appKeyResponse!!.appkey,
                 login = state.email, pwd = state.password, req = Constants.CREATEOAUTHKEY
             )
-            logInResponse = Response.Success(result)
+            logInResponse = if(result.status == "nok"){
+                Response.Failure(Exception("Error authenticated"))
+            }else{
+                Response.Success(result)
+            }
+
         }
 
 
@@ -58,5 +63,11 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
 
     fun onPasswordInput(password: String) {
         state = state.copy(password = password)
+    }
+
+    fun clearState() {
+        state = state.copy(
+            email = "",
+            password = "")
     }
 }

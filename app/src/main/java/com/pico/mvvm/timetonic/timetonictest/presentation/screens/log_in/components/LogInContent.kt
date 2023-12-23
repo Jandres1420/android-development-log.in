@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInScreen
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Red500
 import com.pico.mvvm.timetonic.timetonictest.R
@@ -42,7 +43,7 @@ import com.pico.mvvm.timetonic.timetonictest.ui.theme.Pink40
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Red700
 
 @Composable
-fun LogInContent(viewModel: LogInViewModel = hiltViewModel()) {
+fun LogInContent(navController: NavHostController, viewModel: LogInViewModel = hiltViewModel()) {
     val state = viewModel.state
     Card(
         modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 50.dp),
