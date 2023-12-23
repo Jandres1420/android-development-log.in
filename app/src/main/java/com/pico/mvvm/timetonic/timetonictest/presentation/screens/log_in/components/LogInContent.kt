@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -78,11 +79,12 @@ fun LogInContent(viewModel: LogInViewModel = hiltViewModel()) {
                 label = "Password",
                 icon = Icons.Default.Lock,
                 errorMsg = "",
+                hideText = true,
                 validateField = {})
 
             DefaultButton(
                 text = "INICIAR SESION",
-                onClick = {},
+                onClick = {viewModel.logIn()},
                 enabled = true,
                 modifier = Modifier
                     .fillMaxWidth()

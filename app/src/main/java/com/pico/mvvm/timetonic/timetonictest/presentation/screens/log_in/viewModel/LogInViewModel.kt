@@ -7,7 +7,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pico.mvvm.timetonic.timetonictest.core.Constants
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateAppKey
+import com.pico.mvvm.timetonic.timetonictest.domain.model.LogIn
+import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
+import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.LogInUseCases
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,9 +21,13 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
 
     var state by mutableStateOf(LogInState())
     var appKeyResponse by mutableStateOf<CreateAppKey?>(null)
-    private set
+        private set
+
+    var logInResponse by mutableStateOf<Response<LogIn>?>(null)
+        private set
+
     init {
-        getAppKey("1.0","createAppkey","TimetonicPicoApp")
+        getAppKey("1.0", "createAppkey", "TimetonicPicoApp")
     }
 
     fun getAppKey(version: String, req: String, appName: String) {
@@ -27,18 +35,28 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
             try {
                 val result = logInUseCases.createAppKeyCase(version, req, appName)
                 appKeyResponse = result
-                Log.d("LogInViewModel", "appkey: $appKeyResponse")
             } catch (e: Exception) {
-                // Manejar el error según tus necesidades
                 e.printStackTrace()
             }
         }
     }
 
-    fun onEmailInput(email:String){
+    fun logIn() =
+        viewModelScope.launch {
+            logInResponse = Response.Loading
+            val result = logInUseCases.createOAuthKey(
+                version = "1.0", appKey = appKeyResponse!!.appkey,
+                login = state.email, pwd = state.password, req = Constants.CREATEOAUTHKEY
+            )
+            logInResponse = Response.Success(result)
+        }
+
+
+    fun onEmailInput(email: String) {
         state = state.copy(email = email)
     }
-    fun onPasswordInput(password:String){
+
+    fun onPasswordInput(password: String) {
         state = state.copy(password = password)
     }
 }
