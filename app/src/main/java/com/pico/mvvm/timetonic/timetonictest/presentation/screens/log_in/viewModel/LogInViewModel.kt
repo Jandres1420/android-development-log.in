@@ -66,7 +66,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
             val logInInstance: LogIn? = (logInResponse as? Response.Success<LogIn>)?.data
             Log.d("LogInViewModel", "Usuario: $logInInstance")
             val result = logInUseCases.createSessKeyCase(version = "1.0", req =  Constants.CREATESESSKEY,
-                logInInstance!!.o_u, logInInstance.id, logInInstance.oauthkey)
+                logInInstance!!.o_u, logInInstance!!.o_u, logInInstance.oauthkey)
             sessKeyResponse = result
         }catch (e : Exception){
             e.printStackTrace()
