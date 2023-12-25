@@ -1,6 +1,7 @@
 package com.pico.mvvm.timetonic.timetonictest.data.repository
 
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateAppKey
+import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateSessKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.LogIn
 import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
 import com.pico.mvvm.timetonic.timetonictest.domain.repository.ApiService
@@ -16,6 +17,16 @@ class LogInRepositoryImpl @Inject constructor(private val apiService: ApiService
 
     override suspend fun logIn(version: String, login: String, pwd: String, appKey: String, req: String): LogIn {
         return apiService.login(version, login, pwd, appKey, req)
+    }
+
+    override suspend fun createSessKey(
+        version: String,
+        req: String,
+        o_u: String,
+        u_c: String,
+        oauthkey: String
+    ): CreateSessKey {
+        return apiService.createSessKey(version,req,o_u,u_c,oauthkey)
     }
 
 }

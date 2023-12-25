@@ -16,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.pico.mvvm.timetonic.timetonictest.core.Constants.URLTIMETONIC
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
+import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateSessKeyCase
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -25,7 +26,8 @@ object AppModule {
     @Provides
     fun provideLogInUseCases(repository: LogInRepository) = LogInUseCases(
         createAppKeyCase = CreateAppKeyCase(repository),
-        createOAuthKey = CreateOAuthKey(repository)
+        createOAuthKey = CreateOAuthKey(repository),
+        createSessKeyCase = CreateSessKeyCase(repository)
     )
     @Provides
     @Singleton

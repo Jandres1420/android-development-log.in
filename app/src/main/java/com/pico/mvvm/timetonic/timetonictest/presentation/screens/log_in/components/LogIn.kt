@@ -21,6 +21,7 @@ fun Login(navController: NavHostController, viewModel: LogInViewModel = hiltView
 
         is Response.Success -> {
             Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+            viewModel.createSessKey()
             viewModel.clearState()
             navController.navigate(route = AppScreen.Home.route)
         }

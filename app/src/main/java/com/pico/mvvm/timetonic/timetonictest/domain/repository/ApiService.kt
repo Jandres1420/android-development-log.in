@@ -1,6 +1,7 @@
 package com.pico.mvvm.timetonic.timetonictest.domain.repository
 
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateAppKey
+import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateSessKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.LogIn
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,6 +23,15 @@ interface ApiService {
         @Query("appkey") appKey: String,
         @Query("req") req: String,
     ): LogIn
+
+    @POST("createSessKey")
+    suspend fun createSessKey(
+        @Query("version") version: String,
+        @Query("req") req: String,
+        @Query("o_u") o_u: String,
+        @Query("u_c") u_c: String,
+        @Query("oauthkey") oauthkey: String,
+    ): CreateSessKey
 
 
 }
