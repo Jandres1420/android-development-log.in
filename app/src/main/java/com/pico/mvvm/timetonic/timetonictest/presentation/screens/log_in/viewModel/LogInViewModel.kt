@@ -21,6 +21,7 @@ import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateSessKeyCase
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.LogInUseCases
+import com.pico.mvvm.timetonic.timetonictest.presentation.viewModel.EncryptionUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.security.Key
@@ -49,8 +50,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     var allBooksReq by mutableStateOf<AllBooksReq?>(null)
         private set
 
-    var secretKey: Key? = null
-        private set
+    var encrypted by mutableStateOf("")
 
     init {
         generateSecretKey()
@@ -58,9 +58,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     }
 
     fun generateSecretKey(){
-        val keyGenerator = KeyGenerator.getInstance("AES")
-        keyGenerator.init(128, SecureRandom())
-        secretKey = keyGenerator.generateKey()
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -114,11 +112,14 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
                 logInInstance!!.o_u, logInInstance!!.o_u , logInInstance.oauthkey)
             sessKeyResponse = result
             allBooksReq = AllBooksReq("1.0", logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
-            Log.d("LogInViewModel", "Normal: ${allBooksReq!!.toJson()}")
-            val encryptBooks = encrypt(allBooksReq!!.toJson(),secretKey!!)
-            Log.d("LogInViewModel", "Encriptado: $encryptBooks")
-            val decrypt = encrypt(encryptBooks,secretKey!!)
-            Log.d("LogInViewModel", "Desencriptado: $decrypt")
+
+            Log.d("LogInViewModel", "Normal : ${allBooksReq!!.toJson()}")
+            allBooksReq?.let {
+                encrypted = EncryptionUtil.encrypt(it.toJson())
+                Log.d("LogInViewModel", "Encrypted Text: $encrypted")
+                val decrypted = EncryptionUtil.decrypt(encrypted,)
+            }
+
         }catch (e : Exception){
             e.printStackTrace()
         }

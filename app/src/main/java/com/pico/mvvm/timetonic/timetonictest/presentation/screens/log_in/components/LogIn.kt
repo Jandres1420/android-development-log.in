@@ -23,7 +23,7 @@ fun Login(navController: NavHostController, viewModel: LogInViewModel = hiltView
             Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
             viewModel.createSessKey()
             viewModel.clearState()
-            navController.navigate(route = AppScreen.Home.route)
+            navController.navigate(route = AppScreen.Home.pasBooks(viewModel.encrypted))
         }
 
         is Response.Failure -> {

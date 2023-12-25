@@ -10,7 +10,8 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.components.TopTimetoni
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen (navController: NavHostController?){
+fun HomeScreen (navController: NavHostController?,
+                books: String){
     Scaffold (
         topBar = { TopTimetonic() },
         content = { Text(text = "Home Screen") },
@@ -21,5 +22,5 @@ fun HomeScreen (navController: NavHostController?){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    HomeScreen(null)
+    HomeScreen(null,"")
 }
