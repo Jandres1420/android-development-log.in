@@ -14,7 +14,7 @@ fun HomeContent(books: List<Book>) {
         modifier = Modifier.fillMaxWidth()
     ) {
         items(items = books) { book ->
-            BookCard(book = book)
+            BookCard(book)
         }
     }
 }

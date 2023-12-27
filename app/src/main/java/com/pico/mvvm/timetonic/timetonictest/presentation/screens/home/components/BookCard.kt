@@ -19,6 +19,7 @@ fun BookCard(book: Book) {
         shape = RoundedCornerShape(20.dp)
     ) {
         Column {
+
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()

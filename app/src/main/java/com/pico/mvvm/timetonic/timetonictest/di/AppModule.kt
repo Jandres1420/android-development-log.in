@@ -15,8 +15,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.pico.mvvm.timetonic.timetonictest.core.Constants.URLTIMETONIC
+import com.pico.mvvm.timetonic.timetonictest.data.repository.HomeRepositoryImpl
+import com.pico.mvvm.timetonic.timetonictest.domain.repository.HomeRepository
+import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.home.GetAllBooksCase
+import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.home.HomeUseCases
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateSessKeyCase
+import com.pico.mvvm.timetonic.timetonictest.presentation.navigation.AppScreen
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -28,6 +33,11 @@ object AppModule {
         createAppKeyCase = CreateAppKeyCase(repository),
         createOAuthKey = CreateOAuthKey(repository),
         createSessKeyCase = CreateSessKeyCase(repository)
+    )
+
+    @Provides
+    fun provideHomeUseCases(repository: HomeRepository) = HomeUseCases(
+        getAllBooksCase = GetAllBooksCase(repository)
     )
     @Provides
     @Singleton
@@ -48,6 +58,12 @@ object AppModule {
     @Singleton
     fun provideLogInRepository(apiService: ApiService): LogInRepository {
         return LogInRepositoryImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHomeRepository(apiService: ApiService): HomeRepository {
+        return HomeRepositoryImpl(apiService)
     }
 
 }
