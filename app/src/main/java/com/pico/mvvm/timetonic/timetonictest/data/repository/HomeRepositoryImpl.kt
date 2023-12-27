@@ -1,6 +1,7 @@
 package com.pico.mvvm.timetonic.timetonictest.data.repository
 
 import com.pico.mvvm.timetonic.timetonictest.domain.model.AllBooksReq
+import com.pico.mvvm.timetonic.timetonictest.domain.model.home.GetAllBooks
 import com.pico.mvvm.timetonic.timetonictest.domain.repository.ApiService
 import com.pico.mvvm.timetonic.timetonictest.domain.repository.HomeRepository
 import com.pico.mvvm.timetonic.timetonictest.domain.repository.LogInRepository
@@ -13,7 +14,7 @@ class HomeRepositoryImpl @Inject constructor(private val apiService: ApiService)
         u_c: String,
         sesskey: String,
         req: String
-    ): AllBooksReq {
+    ): GetAllBooks {
         return apiService.gellAllBooks(version,o_u,u_c,sesskey,req);
     }
 }

@@ -4,6 +4,7 @@ import com.pico.mvvm.timetonic.timetonictest.domain.model.AllBooksReq
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateAppKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateSessKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.LogIn
+import com.pico.mvvm.timetonic.timetonictest.domain.model.home.GetAllBooks
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -41,7 +42,7 @@ interface ApiService {
         @Query("u_c") u_c: String,
         @Query("sesskey") sesskey: String,
         @Query("req") req: String,
-    ): AllBooksReq
+    ): GetAllBooks
 
 
 }
