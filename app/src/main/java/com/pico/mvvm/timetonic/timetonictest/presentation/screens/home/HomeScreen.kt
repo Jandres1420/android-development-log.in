@@ -1,6 +1,7 @@
 package com.pico.mvvm.timetonic.timetonictest.presentation.screens.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,8 +11,7 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.components.TopTimetoni
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen (navController: NavHostController?,
-                books: String){
+fun HomeScreen (navController: NavHostController?){
     Scaffold (
         topBar = { TopTimetonic() },
         content = { Text(text = "Home Screen") },
@@ -22,5 +22,5 @@ fun HomeScreen (navController: NavHostController?,
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
-    HomeScreen(null,"")
+    HomeScreen(null)
 }

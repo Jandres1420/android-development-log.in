@@ -53,13 +53,9 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     var encrypted by mutableStateOf("")
 
     init {
-        generateSecretKey()
         getAppKey("1.0", "createAppkey", "TimetonicPicoApp")
     }
 
-    fun generateSecretKey(){
-
-    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun encrypt(input: String, key: Key): String {
