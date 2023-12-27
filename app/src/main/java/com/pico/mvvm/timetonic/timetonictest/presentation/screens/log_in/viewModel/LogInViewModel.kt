@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import java.util.Base64
-import android.util.Log
 import androidx.annotation.RequiresApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.compose.runtime.getValue
@@ -18,18 +17,13 @@ import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateAppKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.CreateSessKey
 import com.pico.mvvm.timetonic.timetonictest.domain.model.LogIn
 import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
-import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
-import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateSessKeyCase
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.LogInUseCases
-import com.pico.mvvm.timetonic.timetonictest.presentation.viewModel.EncryptionUtil
+import com.pico.mvvm.timetonic.timetonictest.utils.EncryptionUtil
+import com.pico.mvvm.timetonic.timetonictest.utils.SharedPreferencesUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.security.Key
-import java.security.KeyStore
-import java.security.SecureRandom
 import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,7 +44,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     var allBooksReq by mutableStateOf<AllBooksReq?>(null)
         private set
 
-    var encrypted by mutableStateOf("")
+    var encryptedBook by mutableStateOf("")
 
     init {
         getAppKey("1.0", "createAppkey", "TimetonicPicoApp")
@@ -108,12 +102,9 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
                 logInInstance!!.o_u, logInInstance!!.o_u , logInInstance.oauthkey)
             sessKeyResponse = result
             allBooksReq = AllBooksReq("1.0", logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
-
-            Log.d("LogInViewModel", "Normal : ${allBooksReq!!.toJson()}")
             allBooksReq?.let {
-                encrypted = EncryptionUtil.encrypt(it.toJson())
-                Log.d("LogInViewModel", "Encrypted Text: $encrypted")
-                val decrypted = EncryptionUtil.decrypt(encrypted,)
+                encryptedBook = EncryptionUtil.encrypt(it.toJson())
+                SharedPreferencesUtil.saveToSharedPreferences(context,"sessionBooks",encryptedBook)
             }
 
         }catch (e : Exception){
