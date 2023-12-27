@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.preference:preference-ktx:1.1.1")
+
     // MATERIAL
     implementation ("androidx.compose.material:material:1.1.0")
     //navigation compose
