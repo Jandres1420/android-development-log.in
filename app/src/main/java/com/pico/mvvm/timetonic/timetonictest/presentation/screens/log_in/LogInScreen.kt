@@ -9,7 +9,11 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.components.TopTimetoni
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.components.LogInBottomBar
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.components.LogInContent
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.components.Login
-
+/**
+ *  Shows screen in a Scaffold with  topbar, content, bottom bar, it also have another
+ * component called Login that sees the state of the LogIn , if Response.Loading, Response.Success. Response.Failure
+ * @param navController: NavHostController (for switching between screens).
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LogInScreen(navController: NavHostController){

@@ -21,6 +21,18 @@ import androidx.compose.ui.unit.sp
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Red500
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Red700
 
+/**
+ *  It makes a buttom with some properties that can be reusable
+ * @param text: String
+ * @param modifier: Modifier
+ * @param onClick: () -> {}
+ * @param label: String
+ * @param icon: ImageVector
+ * @param enabled: Boolean
+ * @param errorMsg: String
+ * @param color: Color
+ */
+
 @Composable
 fun DefaultButton(text: String,
                   onClick: () -> Unit,
