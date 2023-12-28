@@ -22,23 +22,35 @@ import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.home.HomeUseCases
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateOAuthKey
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.CreateSessKeyCase
 import com.pico.mvvm.timetonic.timetonictest.presentation.navigation.AppScreen
-
+/**
+ *  here we daggerHilt module that provides information to the other classes
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
 
-
+    /**
+     *  Provide all the logInUseCases specifically with the corresponding repository and actions
+     *  @param repository: LogInRepository
+     */
     @Provides
     fun provideLogInUseCases(repository: LogInRepository) = LogInUseCases(
         createAppKeyCase = CreateAppKeyCase(repository),
         createOAuthKey = CreateOAuthKey(repository),
         createSessKeyCase = CreateSessKeyCase(repository)
     )
-
+    /**
+     *  Provide all the provideHomeUseCases specifically with the corresponding repository and action
+     *  @param repository: HomeRepository
+     */
     @Provides
     fun provideHomeUseCases(repository: HomeRepository) = HomeUseCases(
         getAllBooksCase = GetAllBooksCase(repository)
     )
+
+    /**
+     *  Provide the retrofit instance with the url that is gonna be used for the api calls
+     */
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
@@ -48,18 +60,31 @@ object AppModule {
             .build()
     }
 
+    /**
+     *  Provide the apiService instance with retrofit, the one that is gonna be in charge for the use of the api calls
+     *   @param retrofit:Retrofit
+     */
     @Provides
     @Singleton
     fun provideCreateAppKey(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
+    /**
+     *  provide the instance LogInRepository and create the instance of the implementation of this interface where is gonna be used
+     *  the apiService
+     *  @param apiService
+     */
     @Provides
     @Singleton
     fun provideLogInRepository(apiService: ApiService): LogInRepository {
         return LogInRepositoryImpl(apiService)
     }
 
+    /**
+     *  provide the instance HomeRepository and create the instance of the implementation of this interface where is gonna be used
+     *  the apiService
+     *  @param apiService
+     */
     @Provides
     @Singleton
     fun provideHomeRepository(apiService: ApiService): HomeRepository {

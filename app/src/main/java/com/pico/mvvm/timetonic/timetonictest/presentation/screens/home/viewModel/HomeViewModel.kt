@@ -20,7 +20,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+/**
+ *  Here we have all the logic of the HomeScreen
+ * @param homeUseCases: LogInUseCases using daggerHilt
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeUseCases: HomeUseCases,
@@ -41,12 +44,18 @@ class HomeViewModel @Inject constructor(
         getAllBooks()
     }
 
+    /**
+     *  Here we get the encrypted info with SharedPrefereneUtil and saving it in allBooksReq
+     */
     private fun getEncryptedInfo() {
         val allBooksReqString =
             SharedPreferencesUtil.readFromSharedPreferences(context, "sessionBooks", "")
         allBooksReq = AllBooksReq.fromJson(EncryptionUtil.decrypt(allBooksReqString))
     }
 
+    /**
+     *  Here we get All the books with an asynchronous called with Retrofit using the homeUseCases.getAllBooksCase
+     */
     fun getAllBooks() = viewModelScope.launch {
         getAllBooksResponse = Response.Loading
         try {
@@ -65,6 +74,9 @@ class HomeViewModel @Inject constructor(
             getAllBooksResponse = Response.Failure(e)
         }
     }
+    /**
+     *  Here we convert from each book the OwnerPrefs.oCoverImg into the correct url
+     */
     fun convertImageURL(){
         var ownerPrefs:OwnerPrefs
         books.forEach{ book: Book ->

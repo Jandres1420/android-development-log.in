@@ -126,6 +126,9 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
         state = state.copy(password = password)
     }
 
+    /**
+     *   Empty de email and password Value
+     */
     fun clearState() {
         state = state.copy(
             email = "",

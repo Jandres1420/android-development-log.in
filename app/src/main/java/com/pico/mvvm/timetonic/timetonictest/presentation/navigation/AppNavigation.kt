@@ -9,18 +9,18 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInSc
 /**
  *  Its the default navigation, and the possible routes that the application can take
  */
-@Composable
-fun AppNavigation(navController: NavHostController){
-    NavHost(navController = navController
-        , startDestination = AppScreen.Login.route){
+    @Composable
+    fun AppNavigation(navController: NavHostController){
+        NavHost(navController = navController
+            , startDestination = AppScreen.Login.route){
 
-        composable(route = AppScreen.Login.route){
-            LogInScreen(navController)
+            composable(route = AppScreen.Login.route){
+                LogInScreen(navController)
+            }
+            composable(route = AppScreen.Home.route){
+                HomeScreen(navController)
+            }
         }
-        composable(route = AppScreen.Home.route){
-            HomeScreen(navController)
-        }
+
+
     }
-
-
-}

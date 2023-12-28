@@ -14,7 +14,11 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.screens.home.component
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.home.components.HomeContent
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.home.viewModel.HomeViewModel
 import com.pico.mvvm.timetonic.timetonictest.utils.SharedPreferencesUtil
-
+/**
+ *  Shows screen in a Scaffold with  topbar, content, bottom bar, it also have another
+ * component called GetAllBooksState, which need the viewModel to see if the info is already loaded
+ * @param navController: NavHostController (for switching between screens).
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen (navController: NavHostController?,viewModel: HomeViewModel = hiltViewModel()){

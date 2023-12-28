@@ -13,7 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.pico.mvvm.timetonic.timetonictest.domain.model.home.Book
-
+/**
+ *  Is the component that is responsabe for the UI of the card with the image and description
+ *  @param book: Books
+ */
 @Composable
 fun BookCard(book: Book) {
     Card(

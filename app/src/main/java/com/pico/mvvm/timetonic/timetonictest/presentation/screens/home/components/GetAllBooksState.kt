@@ -7,10 +7,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
 import com.pico.mvvm.timetonic.timetonictest.presentation.components.ProgressBar
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.home.viewModel.HomeViewModel
+/**
+ *  Is the component that is responsabe for the Response of viewModel.getAllBooksResponse, if its success
+ *  it gonna called the component HomeContent(books = viewModel.books)
+ *  @param viewModel: LogInViewModel
+ */
 
 @Composable
 fun GetAllBooksState(viewModel: HomeViewModel = hiltViewModel()) {
-    when (val logInResponse = viewModel.getAllBooksResponse) {
+    when (val getAllBooksResponse = viewModel.getAllBooksResponse) {
         Response.Loading -> {
             ProgressBar()
         }
@@ -23,7 +28,7 @@ fun GetAllBooksState(viewModel: HomeViewModel = hiltViewModel()) {
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                logInResponse.Exception?.message ?: "Error Desconocido",
+                getAllBooksResponse.Exception?.message ?: "Error Desconocido",
                 Toast.LENGTH_LONG
             ).show()
         }

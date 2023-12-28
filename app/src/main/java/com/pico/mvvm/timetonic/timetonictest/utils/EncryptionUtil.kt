@@ -11,11 +11,18 @@ object EncryptionUtil {
     private const val ALGORITHM = "AES"
     private const val TRANSFORMATION = "AES/CBC/PKCS5Padding"
     private const val SECRET_KEY = "0123456789012345"
+    private const val IV = "0123456789012345"
+
+    /**
+     *  Here we encrypt a string using the algorithm AES and return a encrypted String
+     *  @param text: String
+     *  @return String
+     */
     fun encrypt(text: String): String {
         try {
             val cipher = Cipher.getInstance(TRANSFORMATION)
             val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), ALGORITHM)
-            val ivSpec = IvParameterSpec(generateIV().toByteArray())
+            val ivSpec = IvParameterSpec(IV.toByteArray())
 
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec)
 
@@ -28,11 +35,16 @@ object EncryptionUtil {
         }
     }
 
+    /**
+     *  Here we decrypt a encrypted string using the algorithm AES and return a  decrypted String
+     *  @param text: String
+     *  @return String
+     */
     fun decrypt(cipherText: String): String {
         try {
             val cipher = Cipher.getInstance(TRANSFORMATION)
             val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), ALGORITHM)
-            val ivSpec = IvParameterSpec(generateIV().toByteArray())
+            val ivSpec = IvParameterSpec(IV.toByteArray())
 
             cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
 
