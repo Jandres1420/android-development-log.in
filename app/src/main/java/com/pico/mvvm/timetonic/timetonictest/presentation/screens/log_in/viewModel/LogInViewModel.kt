@@ -26,6 +26,10 @@ import java.security.Key
 import javax.crypto.Cipher
 import javax.inject.Inject
 
+/**
+ *  Here we have all the logic of the LogInScreen
+ * @param logInUseCases: LogInUseCases using daggerHilt
+ */
 @HiltViewModel
 class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCases,
     @ApplicationContext private val context: Context) : ViewModel() {
@@ -45,11 +49,18 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
         private set
 
     var encryptedBook by mutableStateOf("")
-
+    /**
+     *  Since is the first thing that is called when creating de viewModel, called de appKey
+     */
     init {
         getAppKey(Constants.VERSION, "createAppkey", "TimetonicPicoApp")
     }
 
+    /**
+     *  Here we get the AppKey with an asynchronous called with Retrofit using the usecase.createAppKeyCase
+     * @param version: String
+     * @param appName: String
+     */
     fun getAppKey(version: String, req: String, appName: String) {
         viewModelScope.launch {
             try {
@@ -61,6 +72,10 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
         }
     }
 
+    /**
+     *  Here we get the oauthkey with an asynchronous called with Retrofit and veryfing the status with
+     *  the Response state, saving it in  logInResponse that is a mutableStateOf<Response<LogIn>?>
+     */
     fun logIn() =
         viewModelScope.launch {
             logInResponse = Response.Loading
@@ -76,14 +91,17 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
 
         }
 
-    @SuppressLint("NewApi")
+    /**
+     *  Here we get the sessKey with an asynchronous called with Retrofit, using the usecase.createeSessKeyCase
+     *   saving it in  allBooksReq that is a mutableStateOf<AllBooksReq>
+     */
     fun createSessKey() = viewModelScope.launch {
         try{
             val logInInstance: LogIn? = (logInResponse as? Response.Success<LogIn>)?.data
             val result = logInUseCases.createSessKeyCase(Constants.VERSION, req =  Constants.CREATESESSKEY,
                 logInInstance!!.o_u, logInInstance!!.o_u , logInInstance.oauthkey)
             sessKeyResponse = result
-            allBooksReq = AllBooksReq("1.0", logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
+            allBooksReq = AllBooksReq(Constants.VERSION, logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
             allBooksReq?.let {
                 encryptedBook = EncryptionUtil.encrypt(it.toJson())
                 SharedPreferencesUtil.saveToSharedPreferences(context,"sessionBooks",encryptedBook)
@@ -94,15 +112,23 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
         }
     }
 
-
+    /**
+     *   Getting the email every time that it changes like a listener
+     */
     fun onEmailInput(email: String) {
         state = state.copy(email = email)
     }
 
+    /**
+     *   getting the password every time that it changes like a listener
+     */
     fun onPasswordInput(password: String) {
         state = state.copy(password = password)
     }
 
+    /**
+     *   Empty de email and password Value
+     */
     fun clearState() {
         state = state.copy(
             email = "",

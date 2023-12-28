@@ -16,6 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
+/**
+ *  Makes the bottom bar, in which request the user to register, but it doesn't make anything
+ *  because it wasn't requested
+ */
 @Composable
 fun LogInBottomBar() {
     Row (

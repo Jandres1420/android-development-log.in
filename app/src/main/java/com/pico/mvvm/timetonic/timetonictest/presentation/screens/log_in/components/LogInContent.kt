@@ -42,6 +42,12 @@ import com.pico.mvvm.timetonic.timetonictest.ui.theme.Orange
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Pink40
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Red700
 
+/**
+ *  Shows a Card for filling the email and password wit a button to authenticate
+ * @param navController: NavHostController (for switching between screens).
+ * @param viewModel: LogInViewModel De MVVM, and seems this is the logIn the viewModel is in charge of the logic behind de UI
+ * with Dagge Hilt hildViewModel()
+ */
 @Composable
 fun LogInContent(navController: NavHostController, viewModel: LogInViewModel = hiltViewModel()) {
     val state = viewModel.state
@@ -71,8 +77,7 @@ fun LogInContent(navController: NavHostController, viewModel: LogInViewModel = h
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyBoardType = KeyboardType.Email,
-                errorMsg = "",
-                validateField = {})
+                errorMsg = "")
             DefaultTextField(
                 value = state.password,
                 modifier = Modifier.padding(top = 10.dp),
@@ -80,8 +85,7 @@ fun LogInContent(navController: NavHostController, viewModel: LogInViewModel = h
                 label = "Password",
                 icon = Icons.Default.Lock,
                 errorMsg = "",
-                hideText = true,
-                validateField = {})
+                hideText = true)
 
             DefaultButton(
                 text = "INICIAR SESION",

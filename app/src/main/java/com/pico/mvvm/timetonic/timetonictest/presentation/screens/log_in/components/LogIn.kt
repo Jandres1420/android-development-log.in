@@ -10,7 +10,11 @@ import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
 import com.pico.mvvm.timetonic.timetonictest.presentation.components.ProgressBar
 import com.pico.mvvm.timetonic.timetonictest.presentation.navigation.AppScreen
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.viewModel.LogInViewModel
-
+/**
+ *  Is the component that is responsabe for the Response of viewModel.logInResponse
+ *  @param navController: NavHostController
+ *  @param viewModel: LogInViewModel
+ */
 
 @Composable
 fun Login(navController: NavHostController, viewModel: LogInViewModel = hiltViewModel()) {
@@ -20,7 +24,7 @@ fun Login(navController: NavHostController, viewModel: LogInViewModel = hiltView
         }
 
         is Response.Success -> {
-            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_SHORT).show()
             viewModel.createSessKey()
             viewModel.clearState()
             navController.navigate(route = AppScreen.Home.route)

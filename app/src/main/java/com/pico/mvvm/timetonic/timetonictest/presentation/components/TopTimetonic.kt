@@ -22,7 +22,9 @@ import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInSc
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.BlueTitle
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Orange
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.Pink40
-
+/**
+ *  Show the topBar, and the timetonic logo
+ */
 @Composable
 fun TopTimetonic() {
 

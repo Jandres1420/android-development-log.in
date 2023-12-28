@@ -10,6 +10,10 @@ data class AllBooksReq(
     val sesskey: String,
     val req: String,
 ){
+    /**
+     *  Herewe use Gson to convert a AllBooksReq into a string
+     *  @return String
+     */
     fun toJson(): String = Gson().toJson(AllBooksReq(version,
         o_u,
         u_c,
@@ -17,6 +21,11 @@ data class AllBooksReq(
         req))
 
     companion object {
+
+        /**
+         *  Herewe use Gson to convert a String  into a AllBooksReq class
+         *  @return AllBooReq
+         */
         fun fromJson(data: String): AllBooksReq = Gson().fromJson(data, AllBooksReq::class.java)
     }
 }

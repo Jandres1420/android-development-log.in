@@ -1,5 +1,7 @@
 package com.pico.mvvm.timetonic.timetonictest.domain.model
-
+/**
+ *  Is the dataclass that getsFrom the RetroFit called
+ */
 data class LogIn (
     val status: String,
     val oauthkey: String,

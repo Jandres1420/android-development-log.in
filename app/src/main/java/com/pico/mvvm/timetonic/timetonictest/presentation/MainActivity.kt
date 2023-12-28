@@ -1,7 +1,9 @@
 package com.pico.mvvm.timetonic.timetonictest.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mvvm.gamermvvmapp.presentation.ui.theme.TimetonicTheme
 import com.pico.mvvm.timetonic.timetonictest.presentation.navigation.AppNavigation
+import com.pico.mvvm.timetonic.timetonictest.presentation.navigation.AppScreen
 import com.pico.mvvm.timetonic.timetonictest.presentation.screens.log_in.LogInScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,21 +37,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun GreetingPreview() {
-    TimetonicTheme {
-        Greeting("Android")
     }
 }

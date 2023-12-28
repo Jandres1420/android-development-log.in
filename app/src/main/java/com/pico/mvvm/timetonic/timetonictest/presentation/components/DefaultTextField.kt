@@ -30,39 +30,49 @@ import androidx.compose.ui.unit.sp
 import com.mvvm.gamermvvmapp.presentation.ui.theme.TimetonicTheme
 import com.pico.mvvm.timetonic.timetonictest.ui.theme.BlueTitle
 
+/**
+ *  It makes an OutlinedTextField that can be reusable
+ * @param value: String
+ * @param modifier: Modifier
+ * @param onValueChange: () -> {}
+ * @param label: String
+ * @param icon: ImageVector
+ * @param keyBoardType: KeyBoardType
+ * @param hideText: Boolean
+ * @param errorMsg: String
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-fun DefaultTextField(value: String,
-                     modifier: Modifier,
-                     onValueChange: (value:String) -> Unit,
-                     label: String,
-                     icon: ImageVector,
-                     keyBoardType: KeyboardType = KeyboardType.Text,
-                     hideText: Boolean = false,
-                     errorMsg: String = "",
-                     validateField: () -> Unit)
-{
+fun DefaultTextField(
+    value: String,
+    modifier: Modifier,
+    onValueChange: (value: String) -> Unit,
+    label: String,
+    icon: ImageVector,
+    keyBoardType: KeyboardType = KeyboardType.Text,
+    hideText: Boolean = false,
+    errorMsg: String = ""
+) {
     Column() {
-        OutlinedTextField(modifier = modifier.height(65.dp).width(300.dp),
+        OutlinedTextField(modifier = modifier
+            .height(65.dp)
+            .width(300.dp),
             value = value,
-            onValueChange = {
-                    myValue -> onValueChange(myValue)
-                validateField() }
-            , label = {
-                Text(label  )
+            onValueChange = { myValue ->
+                onValueChange(myValue)
+            }, label = {
+                Text(label)
             },
             keyboardOptions = KeyboardOptions(keyboardType = keyBoardType),
             leadingIcon = {
                 Icon(
-                    imageVector = icon
-                    , contentDescription = "",
+                    imageVector = icon, contentDescription = "",
                     tint = Color.White
                 )
             },
-            visualTransformation = if(hideText) PasswordVisualTransformation() else VisualTransformation.None
+            visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None
         )
-        Text(text = errorMsg, modifier.padding(top = 5.dp), fontSize = 11.sp , color = BlueTitle  )
+        Text(text = errorMsg, modifier.padding(top = 5.dp), fontSize = 11.sp, color = BlueTitle)
     }
 
 }
@@ -70,7 +80,7 @@ fun DefaultTextField(value: String,
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun previewDefaultButton() {
-    TimetonicTheme{
+    TimetonicTheme {
         TimetonicTheme(darkTheme = false) {
             // A surface container using the 'background' color from the theme
             Surface(
@@ -78,8 +88,11 @@ fun previewDefaultButton() {
                 color = MaterialTheme.colorScheme.background
 
             ) {
-                DefaultTextField(label = "Email", modifier = Modifier, validateField = {}
-                    , icon = Icons.Outlined.Add , value = "", onValueChange = {} )
+                DefaultTextField(label = "Email",
+                    modifier = Modifier,
+                    icon = Icons.Outlined.Add,
+                    value = "",
+                    onValueChange = {})
             }
         }
     }
