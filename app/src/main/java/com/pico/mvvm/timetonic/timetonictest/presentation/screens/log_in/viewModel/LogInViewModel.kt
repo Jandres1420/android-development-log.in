@@ -47,25 +47,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     var encryptedBook by mutableStateOf("")
 
     init {
-        getAppKey("1.0", "createAppkey", "TimetonicPicoApp")
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun encrypt(input: String, key: Key): String {
-        val cipher = Cipher.getInstance("AES")
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        val encryptedBytes = cipher.doFinal(input.toByteArray())
-        return Base64.getEncoder().encodeToString(encryptedBytes)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun decrypt(input: String, key: Key): String {
-        val cipher = Cipher.getInstance("AES")
-        cipher.init(Cipher.DECRYPT_MODE, key)
-        val decodedBytes = Base64.getDecoder().decode(input)
-        val decryptedBytes = cipher.doFinal(decodedBytes)
-        return String(decryptedBytes)
+        getAppKey(Constants.VERSION, "createAppkey", "TimetonicPicoApp")
     }
 
     fun getAppKey(version: String, req: String, appName: String) {
@@ -83,7 +65,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
         viewModelScope.launch {
             logInResponse = Response.Loading
             val result = logInUseCases.createOAuthKey(
-                version = "1.1", appKey = appKeyResponse!!.appkey,
+                version = Constants.VERSION, appKey = appKeyResponse!!.appkey,
                 login = state.email, pwd = state.password, req = Constants.CREATEOAUTHKEY
             )
             logInResponse = if(result.status == "nok"){
@@ -98,7 +80,7 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
     fun createSessKey() = viewModelScope.launch {
         try{
             val logInInstance: LogIn? = (logInResponse as? Response.Success<LogIn>)?.data
-            val result = logInUseCases.createSessKeyCase(version = "1.0", req =  Constants.CREATESESSKEY,
+            val result = logInUseCases.createSessKeyCase(Constants.VERSION, req =  Constants.CREATESESSKEY,
                 logInInstance!!.o_u, logInInstance!!.o_u , logInInstance.oauthkey)
             sessKeyResponse = result
             allBooksReq = AllBooksReq("1.0", logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
