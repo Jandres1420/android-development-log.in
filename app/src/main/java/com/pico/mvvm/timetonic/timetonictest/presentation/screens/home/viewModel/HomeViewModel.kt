@@ -7,10 +7,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pico.mvvm.timetonic.timetonictest.core.Constants
 import com.pico.mvvm.timetonic.timetonictest.domain.model.AllBooksReq
 import com.pico.mvvm.timetonic.timetonictest.domain.model.Response
 import com.pico.mvvm.timetonic.timetonictest.domain.model.home.Book
 import com.pico.mvvm.timetonic.timetonictest.domain.model.home.GetAllBooks
+import com.pico.mvvm.timetonic.timetonictest.domain.model.home.OwnerPrefs
 import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.home.HomeUseCases
 import com.pico.mvvm.timetonic.timetonictest.utils.EncryptionUtil
 import com.pico.mvvm.timetonic.timetonictest.utils.SharedPreferencesUtil
@@ -57,13 +59,20 @@ class HomeViewModel @Inject constructor(
             )
             getAllBooksResponse = Response.Success(result)
             books = (getAllBooksResponse as? Response.Success<GetAllBooks>)!!.data.allBooks.books
-            Log.d("HomeViewModel","LIBROOOS $books")
+            convertImageURL()
         } catch (e: Exception) {
             e.printStackTrace()
             getAllBooksResponse = Response.Failure(e)
         }
-
-
+    }
+    fun convertImageURL(){
+        var ownerPrefs:OwnerPrefs
+        books.forEach{ book: Book ->
+            ownerPrefs = book.ownerPrefs
+            ownerPrefs.oCoverImg = Constants.URLTIMETONICIMAGE + ownerPrefs.oCoverImg.replace("\\","")
+            ownerPrefs.oCoverImg = ownerPrefs.oCoverImg.replace("/live","")
+            book.ownerPrefs = ownerPrefs
+        }
     }
 
 }

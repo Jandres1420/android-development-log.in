@@ -4,7 +4,7 @@ data class OwnerPrefs(
     val fpAutoExport: Boolean,
     val oCoverColor: String,
     val oCoverUseLastImg: Boolean,
-    val oCoverImg: String,
+    var oCoverImg: String,
     val oCoverType: String,
     val authorizeMemberBroadcast: Boolean,
     val acceptExternalMsg: Boolean,

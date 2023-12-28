@@ -23,7 +23,7 @@ object EncryptionUtil {
             return Base64.encodeToString(encryptedBytes, Base64.DEFAULT)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("SimpleEncryptionUtil", "Error en cifrado: ${e.message}")
+            Log.e("SimpleEncryptionUtil", "Encryption error: ${e.message}")
             throw e
         }
     }
@@ -40,12 +40,12 @@ object EncryptionUtil {
             return String(decryptedBytes, Charset.defaultCharset())
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("SimpleEncryptionUtil", "Error en descifrado: ${e.message}")
+            Log.e("SimpleEncryptionUtil", "Encryption error: ${e.message}")
             throw e
         }
     }
 
     private fun generateIV(): String {
-        return "0123456789012345" // IV de ejemplo (32 caracteres)
+        return "0123456789012345"
     }
 }

@@ -26,7 +26,7 @@ data class Book(
     val lastMsg: LastMsg,
     val nbMsgs: Int,
     val userPrefs: UserPrefs,
-    val ownerPrefs: OwnerPrefs,
+    var ownerPrefs: OwnerPrefs,
     val sbid: Int,
     val lastMsgRead: Int,
     val lastMedia: Int,
