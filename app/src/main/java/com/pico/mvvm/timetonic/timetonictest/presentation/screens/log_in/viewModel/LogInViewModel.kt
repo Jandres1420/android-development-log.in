@@ -21,6 +21,8 @@ import com.pico.mvvm.timetonic.timetonictest.domain.use_cases.log_in.LogInUseCas
 import com.pico.mvvm.timetonic.timetonictest.utils.EncryptionUtil
 import com.pico.mvvm.timetonic.timetonictest.utils.SharedPreferencesUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.security.Key
 import javax.crypto.Cipher
@@ -95,22 +97,31 @@ class LogInViewModel @Inject constructor(private val logInUseCases: LogInUseCase
      *  Here we get the sessKey with an asynchronous called with Retrofit, using the usecase.createeSessKeyCase
      *   saving it in  allBooksReq that is a mutableStateOf<AllBooksReq>
      */
-    fun createSessKey() = viewModelScope.launch {
-        try{
+    suspend fun createSessKey():Boolean{
+        try {
             val logInInstance: LogIn? = (logInResponse as? Response.Success<LogIn>)?.data
-            val result = logInUseCases.createSessKeyCase(Constants.VERSION, req =  Constants.CREATESESSKEY,
-                logInInstance!!.o_u, logInInstance!!.o_u , logInInstance.oauthkey)
+            val result = logInUseCases.createSessKeyCase(Constants.VERSION,req = Constants.CREATESESSKEY,
+                logInInstance!!.o_u,logInInstance.o_u, logInInstance.oauthkey)
             sessKeyResponse = result
-            allBooksReq = AllBooksReq(Constants.VERSION, logInInstance!!.o_u, logInInstance!!.o_u, sessKeyResponse!!.sesskey,Constants.GETALLBOOKS)
+            allBooksReq = AllBooksReq(
+                Constants.VERSION,
+                logInInstance.o_u,
+                logInInstance.o_u,
+                sessKeyResponse!!.sesskey,
+                Constants.GETALLBOOKS
+            )
             allBooksReq?.let {
                 encryptedBook = EncryptionUtil.encrypt(it.toJson())
-                SharedPreferencesUtil.saveToSharedPreferences(context,"sessionBooks",encryptedBook)
+                SharedPreferencesUtil.saveToSharedPreferences(context, "sessionBooks", encryptedBook)
             }
 
-        }catch (e : Exception){
+            return true
+        } catch (e: Exception) {
             e.printStackTrace()
+            return false
         }
     }
+
 
     /**
      *   Getting the email every time that it changes like a listener
